@@ -1,0 +1,224 @@
+/* Style the tab */
+
+.mainTable
+{
+    margin: 0 auto;
+}
+
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+}
+#only_num
+{
+    width: 25px;
+}
+.timerAuto
+{
+    margin-top: 10px;
+}
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    color: #fff;
+    background-color: rgba(41, 111, 202, 0.966);
+}
+
+.topLine
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+}
+
+.contentTopLine
+{
+    text-align: center;
+    padding-bottom: 10px;
+}
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+.form-control{
+    margin:0 45%;
+}
+th {
+    font-weight: normal;
+    color: #06ee25;
+    padding: 10px 15px;
+  }
+  td {
+    color: #669;
+    border-top: 1px solid #e8edff;
+    padding: 10px 15px;
+  }
+  tr:nth-child(2n) {
+    background: #e8edff;
+  }
+
+.tabcontent {
+    animation: fadeEffect 1s; /* Fading effect takes 1 second */
+}
+
+.table_sort
+{
+    margin: 0 auto;
+}
+
+
+
+.table_sort th {
+    color: #ffffff;
+    background: #010fa7;
+    cursor: pointer;
+}
+
+
+
+
+
+th.sorted[data-order="1"],
+th.sorted[data-order="-1"] {
+    position: relative;
+}
+
+th.sorted[data-order="1"]::after,
+th.sorted[data-order="-1"]::after {
+    right: 8px;
+    position: absolute;
+}
+
+th.sorted[data-order="-1"]::after {
+	content: "▼"
+}
+
+th.sorted[data-order="1"]::after {
+	content: "▲"
+}
+
+thead
+{
+    position: sticky;
+    top: 0;
+}
+
+.search {
+	/* устанавливаем необходимую ширину формы в зависимости от дизайна
+	** форма без проблем растягивается */
+	width: 300px;
+    display: block;
+    margin: 1% auto;
+    
+
+	/* кнопку отправки будем позиционировать абсолютно,
+	** поэтому необходимо это свойство */
+	position: relative;
+}
+
+.search input {
+	/* отключаем бордюры у инпутов */
+	border: none;
+}
+
+/* стили для поля ввода */
+.search .input {
+	/* растягиваем поле ввода на всю ширину формы */
+	width: 100%;
+
+	/* за счет верхнего (8px) и нижнего (9px) внутренних отступов
+	** регулируем высоту формы
+	** внутренний отступ справа (37px) делаем больше левого,
+	** т.к. там будет размещена кнопка отправки	*/
+	padding: 8px 37px 9px 15px;
+
+	/* чтобы ширина поля ввода (100%) включала в себя внутренние отступы */
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+
+	/* добавляем внутренние тени */
+	box-shadow: inset 0 0 5px rgba(0,0,0,0.1), inset 0 1px 2px rgba(0,0,0,0.3);
+
+	/* закругляем углы */
+	border-radius: 20px;
+
+	background: #EEE;
+	font: 13px Tahoma, Arial, sans-serif;
+	color: #555;
+	outline: none;
+}
+
+/* меняем оформление поля ввода при фокусе */
+.search .input:focus {
+	box-shadow: inset 0 0 5px rgba(0,0,0,0.2), inset 0 1px 2px rgba(0,0,0,0.4);
+	background: #E8E8E8;
+	color: #333;
+}
+
+
+
+/* данное свойство необходимо для того, чтобы в браузерах
+** Chrome и Safari можно было стилизовать инпуты */
+input[type="search"] {
+	-webkit-appearance: none;
+}
+
+/* Go from zero to full opacity */
+@keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+@media (max-width: 600px) {
+
+    .tab button {
+        padding: 14px 12px;
+        
+
+    }
+    .tabcontent {
+        padding: 0;
+    }
+}
+
+@media (max-width: 450px) {
+
+    .tab button {
+        padding: 14px 8px;
+        
+
+    }
+
+    td {
+
+        padding: 10px 10px;
+    }
+}
+
+@media (max-width: 450px) {
+
+
+
+    td {
+        font-size: 13px;
+        padding: 10px 7px;
+    }
+}

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <title>Minus ParserBestChange</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    
+</head>
+<body>
+
+      <div class="mainTable">
+      <!-- Tab content -->
+      <form action="" method="post" class="search">
+        <input type="text" name="" placeholder="поиск" id="search" class="input" />
+         
+
+         </div>
+      </form>
+      <div class="topLine">
+        <div class="contentTopLine" id="timeUpdate"></div>
+        <div class="contentTopLine">  Автообновление: <span id="autoload">1</span>c</div> 
+        <div class="contentTopLine"><span>Показано <span id="point">10</span> пар</span></div>
+        <div class="contentTopLine" class="timerAuto"><span>Таймер обновления:</span>  <input type="text" id="only_num" value="60" onchange="handleChange(this);" /><span>с</span></div>
+        </div>
+      <div id="table-exch">
+        <table  class="table_sort" class="table table-striped" id="mytable" cellspacing="0">
+         <thead>
+            <tr role="row">
+            <th data-order="1" >Валютная пара</th>
+            <th data-order="1" class="">Курс 1</th>
+            <th data-order="1" class="" >Курс 2</th>
+            <th data-order="1" class="">Курс 3</th>
+            <th data-order="1" class="">Курс 4</th>
+            <th data-order="1" class="">Курс 5</th>
+            <th data-order="1" >Разница в <br> % курс 2</th>
+            <th data-order="1" class="">Разница в <br> % курс 3</th>
+            <th data-order="1" class="">Разница в <br> % курс 4</th>
+            <th data-order="1" class="sorted" class="">Разница в <br> % курс 5</th>
+            <th  data-order="1" class="">Ссылка</th>
+            
+          </tr>
+        </thead>
+        <tbody id="table">
+
+        </tbody>
+        
+
+         </table>
+         
+      </div>
+
+      
+
+      
+   
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="/settings.js"></script>
+<script src="/scroll.js"></script>
+<script>
+     document.addEventListener('DOMContentLoaded', () => {
+
+const getSort = ({ target }) => {
+   
+    const order = (target.dataset.order = -(target.dataset.order || -1));
+    const index = [...target.parentNode.cells].indexOf(target);
+    const collator = new Intl.Collator(['en','ru'], { numeric: true });
+    const comparator = (index, order) => (a, b) => order * collator.compare(
+        a.children[index].innerHTML,
+        b.children[index].innerHTML
+    );
+    
+    const isNum = (content) => !isNaN(parseFloat(content)) && isFinite(content);//функция проверки числа (можно свою написать)
+
+for(const tBody of target.closest('table').tBodies) {
+    if (isNum(tBody.rows[0].children[index].textContent)) //проверка на число в первой строке
+        tBody.append(...[...tBody.rows].sort(function(a, b){
+            var numA=a.children[index].textContent, numB=b.children[index].textContent;
+            if (isNum(numA) && isNum(numB)) return order * (numA - numB); //проверяем на число все ячейки
+            else return 0 
+        }));
+    else            
+        tBody.append(...[...tBody.rows].sort(comparator(index, order)));
+
+}
+
+    for(const tBody of target.closest('table').tBodies)
+    {
+      if (isNum(tBody.rows[0].children[index].textContent)) //проверка на число в первой строке
+        tBody.append(...[...tBody.rows].sort(function(a, b){
+            var numA=a.children[index].textContent, numB=b.children[index].textContent;
+            if (isNum(numA) && isNum(numB)) return order * (numA - numB); //проверяем на число все ячейки
+            else return 0 
+        }));
+    else            
+        tBody.append(...[...tBody.rows].sort(comparator(index, order)));
+    }
+       
+
+    for(const cell of target.parentNode.cells)
+        cell.classList.toggle('sorted', cell === target);
+};
+
+
+
+document.querySelectorAll('.table_sort thead').forEach(tableTH => tableTH.addEventListener('click', () => getSort(event)));
+
+
+
+});
+</script>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="search.js"></script>
+
+<script>
+function handleChange(input) {
+    if (input.value < 60) input.value = 60;
+    if (input.value > 600) input.value = 600;
+  }</script>
+
+<script src="load.js"></script>
+
+
+
+</body>
+</html>

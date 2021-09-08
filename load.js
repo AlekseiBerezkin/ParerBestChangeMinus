@@ -26,9 +26,9 @@ fetch(url+"stateServer").then(response => response.json())
     .then(res=>{
       if(res==true)
       {
-        debugger
+        
         clearInterval(timerIdStart);
-        start();
+        prestart();
       }
     
     });
@@ -37,16 +37,32 @@ fetch(url+"stateServer").then(response => response.json())
   }
   if(res==true)
   {
-    start();
+    prestart();
   }
 });
 
+let prestart=()=>
+{
+  fetch(url+"basecur").then(response => response.json())
+  .then(res=>{
+    
+    getBaseCur(res);
+    start();
+  });
+}
 
+let getBaseCur=(res)=>
+{
+
+  res.forEach(elem=>{let base=document.getElementById(elem.Key);base.innerHTML=NanToZero(elem.Value)})
+  
+}
 
 let start=()=>
 {
   fetch(url+dataName).then(response => response.json())
-  .then(res=>{debugger
+  .then(res=>{
+    //debugger
   
     bodyFeatch(res);
     let click=document.getElementsByClassName('sorted')[0];
@@ -60,10 +76,20 @@ let start=()=>
   
      if(autol.innerText==0)
      {
-      fetch(url+dataName).then(response => response.json())
+
+
+      fetch(url+"basecur").then(response => response.json())
       .then(res=>{
-        bodyFeatch(res);
+        
+        getBaseCur(res);
+        fetch(url+dataName).then(response => response.json())
+        .then(res=>{
+          bodyFeatch(res);
+        });
       });
+
+
+
      }
      else
      {
@@ -130,8 +156,10 @@ let calc=(elem)=>
     name:elem.Name,
     Rate:rate,
     link:elem.url,
-    calcul:mass
+    calcul:mass,
+    binance:elem.askPrice
   }
+  //debugger
   massCalc.push(r);
   
 }
@@ -155,7 +183,7 @@ let NanToZero=(element)=>
   return parseFloat(element).toFixed(3)
 }
 
-let renderTable=(name,mass,calcrate,link)=>
+let renderTable=(name,mass,askPrice,link)=>
 {
   let massrev=mass;
   
@@ -166,6 +194,26 @@ let renderTable=(name,mass,calcrate,link)=>
   let newCellName=document.createElement("td");
         newCellName.innerText=name;
         newRow.appendChild(newCellName);
+
+
+      let newCellC11=document.createElement("td");
+        newCellC11.innerText=NanToZero(askPrice);
+        newRow.appendChild(newCellC11);
+        
+        let newCellC12=document.createElement("td");
+        newCellC12.innerText=NanToZero(askPrice*document.getElementById("UAH").innerHTML);
+        newRow.appendChild(newCellC12);
+
+        let newCellC13=document.createElement("td");
+        newCellC13.innerText=NanToZero(askPrice*document.getElementById("EUR").innerHTML);
+        newRow.appendChild(newCellC13);
+
+        let newCellC14=document.createElement("td");
+        newCellC14.innerText=NanToZero(askPrice*document.getElementById("RUB").innerHTML);
+        newRow.appendChild(newCellC14);
+
+
+
 
   let newCellC1=document.createElement("td");
         newCellC1.innerText=NanToZero(massrev[0]);
@@ -238,12 +286,14 @@ let updateTable=()=>
 {
 let Parent = document.getElementById("table");
 while(Parent.hasChildNodes())
-{
+{ 
    Parent.removeChild(Parent.firstChild);
 }
 
 
-massCalc.forEach(e=>{ renderTable(e.name,e.Rate,e.calcul,e.link)})
+massCalc.forEach(e=>{ 
+  //debugger
+  renderTable(e.name,e.Rate,e.binance,e.link)})
 resortTable();
 }
 

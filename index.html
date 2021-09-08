@@ -24,12 +24,22 @@
         <div class="contentTopLine">  Автообновление: <span id="autoload">1</span>c</div> 
         <div class="contentTopLine"><span>Показано <span id="point">10</span> пар</span></div>
         <div class="contentTopLine" class="timerAuto"><span>Таймер обновления:</span>  <input type="text" id="only_num" value="60" onchange="handleChange(this);" /><span>с</span></div>
+        <div class="contentTopLine" >
+          <span id="USDT">USDT 1</span>,
+          <span>UAH </span><span id="UAH"></span>,
+          <span>EURO </span><span id="EUR"></span>,
+          <span>RUB </span><span id="RUB"></span>
+        </div>
         </div>
       <div id="table-exch">
         <table  class="table_sort" class="table table-striped" id="mytable" cellspacing="0">
          <thead>
             <tr role="row">
             <th data-order="1" >Валютная пара</th>
+            <th data-order="1" >B,USDT</th>
+            <th data-order="1" >B,грн</th>
+            <th data-order="1" >В,EUR</th>
+            <th data-order="1" >В,RUB</th>
             <th data-order="1" class="">Курс 1</th>
             <th data-order="1" class="" >Курс 2</th>
             <th data-order="1" class="">Курс 3</th>
@@ -58,7 +68,7 @@
    
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="/settings.js"></script>
-<script src="/scroll.js"></script>
+<!--<script src="/scroll.js"></script>-->
 <script>
      document.addEventListener('DOMContentLoaded', () => {
 

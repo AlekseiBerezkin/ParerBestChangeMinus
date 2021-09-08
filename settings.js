@@ -1,1 +1,1 @@
-let url="http://45.82.178.254/parser/";
+let url="https://localhost:44310/";

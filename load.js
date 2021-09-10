@@ -193,6 +193,7 @@ let renderTable=(name,mass,askPrice,link)=>
   let newRow=document.createElement("tr");
   let newCellName=document.createElement("td");
         newCellName.innerText=name;
+        newCellName.className="LeftCollumn";
         newRow.appendChild(newCellName);
 
 

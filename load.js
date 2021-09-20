@@ -16,30 +16,9 @@ clearInterval(timerId);
 
 let flagStartServer=false;
 
-fetch(url+"stateServer").then(response => response.json())
-.then(res=>{
-  if(res==false)
-  {debugger
-   fetch(url+"continue");
-   timerIdStart=setInterval(()=>{
-    fetch(url+"stateServer").then(response => response.json())
-    .then(res=>{
-      if(res==true)
-      {
-        
-        clearInterval(timerIdStart);
-        prestart();
-      }
-    
-    });
 
-   },1000)
-  }
-  if(res==true)
-  {
-    prestart();
-  }
-});
+
+
 
 let prestart=()=>
 {
@@ -50,6 +29,8 @@ let prestart=()=>
     start();
   });
 }
+
+prestart();
 
 let getBaseCur=(res)=>
 {
@@ -143,7 +124,7 @@ let resort=()=>
 
 let calc=(elem)=>
 {
-  
+  //debugger
   let rate=elem.Rate.sort().reverse();
 
   let mass=[
@@ -157,7 +138,8 @@ let calc=(elem)=>
     Rate:rate,
     link:elem.url,
     calcul:mass,
-    binance:elem.askPrice
+    binance:elem.askPrice,
+    back:elem.back
   }
   //debugger
   massCalc.push(r);
@@ -183,7 +165,7 @@ let NanToZero=(element)=>
   return parseFloat(element).toFixed(3)
 }
 
-let renderTable=(name,mass,askPrice,link)=>
+let renderTable=(name,mass,askPrice,link,valueback)=>
 {
   let massrev=mass;
   
@@ -213,7 +195,9 @@ let renderTable=(name,mass,askPrice,link)=>
         newCellC14.innerText=NanToZero(askPrice*document.getElementById("RUB").innerHTML);
         newRow.appendChild(newCellC14);
 
-
+        let back=document.createElement("td");
+        back.innerText=NanToZero(valueback);
+        newRow.appendChild(back);
 
 
   let newCellC1=document.createElement("td");
@@ -294,7 +278,7 @@ while(Parent.hasChildNodes())
 
 massCalc.forEach(e=>{ 
   //debugger
-  renderTable(e.name,e.Rate,e.binance,e.link)})
+  renderTable(e.name,e.Rate,e.binance,e.link,e.back)})
 resortTable();
 }
 
